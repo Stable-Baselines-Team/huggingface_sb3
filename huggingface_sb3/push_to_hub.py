@@ -14,7 +14,12 @@ from huggingface_hub import HfApi, ModelCard, ModelCardData
 from huggingface_hub.repocard import metadata_eval_result
 from stable_baselines3.common.base_class import BaseAlgorithm
 from stable_baselines3.common.evaluation import evaluate_policy
-from stable_baselines3.common.vec_env import DummyVecEnv, VecEnv, VecVideoRecorder, unwrap_vec_normalize
+from stable_baselines3.common.vec_env import (
+    DummyVecEnv,
+    VecEnv,
+    VecVideoRecorder,
+    unwrap_vec_normalize,
+)
 from wasabi import Printer
 
 msg = Printer()
@@ -66,7 +71,9 @@ def _evaluate_agent(
     :param local_path: path of the local repository
     """
     # Step 1: Evaluate the agent
-    mean_reward, std_reward = evaluate_policy(model, eval_env, n_eval_episodes, is_deterministic)
+    mean_reward, std_reward = evaluate_policy(
+        model, eval_env, n_eval_episodes, is_deterministic
+    )
 
     # Step 2: Create json evaluation
     # First get datetime
@@ -161,11 +168,18 @@ def _generate_replay(
         except Exception as e:
             msg.fail(str(e))
             # Add a message for video
-            msg.fail("We are unable to generate a replay of your agent, the package_to_hub process continues")
-            msg.fail("Please open an issue at https://github.com/huggingface/huggingface_sb3/issues")
+            msg.fail(
+                "We are unable to generate a replay of your agent, "
+                "the package_to_hub process continues"
+            )
+            msg.fail(
+                "Please open an issue at https://github.com/huggingface/huggingface_sb3/issues"
+            )
 
 
-def _generate_metadata(model_name: str, env_id: str, mean_reward: float, std_reward: float) -> ModelCardData:
+def _generate_metadata(
+    model_name: str, env_id: str, mean_reward: float, std_reward: float
+) -> ModelCardData:
     """
     Define the tags for the model card
     :param model_name: name of the model
@@ -198,7 +212,9 @@ def _generate_metadata(model_name: str, env_id: str, mean_reward: float, std_rew
     return ModelCardData(**metadata, **eval)
 
 
-def _generate_model_card(model_name: str, env_id: str, mean_reward: float, std_reward: float) -> ModelCard:
+def _generate_model_card(
+    model_name: str, env_id: str, mean_reward: float, std_reward: float
+) -> ModelCard:
     """
     Generate the model card for the Hub
     :param model_name: name of the model
@@ -236,7 +252,9 @@ from huggingface_sb3 import load_from_hub
 """
 
     # Step 2: Generate the model card
-    return ModelCard.from_template(metadata, template_str=template, model_name=model_name, env_id=env_id)
+    return ModelCard.from_template(
+        metadata, template_str=template, model_name=model_name, env_id=env_id
+    )
 
 
 def _add_logdir(local_path: Path, logdir: Path):
@@ -338,13 +356,17 @@ def package_to_hub(
         _generate_config(model_name, tmpdirname)
 
         # Step 3: Evaluate the agent
-        mean_reward, std_reward = _evaluate_agent(model, eval_env, n_eval_episodes, is_deterministic, tmpdirname)
+        mean_reward, std_reward = _evaluate_agent(
+            model, eval_env, n_eval_episodes, is_deterministic, tmpdirname
+        )
 
         # Step 4: Generate a video
         _generate_replay(model, replay_env, video_length, is_deterministic, tmpdirname)
 
         # Step 5: Generate the model card
-        generated_model_card = _generate_model_card(model_architecture, env_id, mean_reward, std_reward)
+        generated_model_card = _generate_model_card(
+            model_architecture, env_id, mean_reward, std_reward
+        )
         generated_model_card.save(tmpdirname / "README.md")
 
         # Step 6: Add logs if needed
@@ -360,7 +382,9 @@ def package_to_hub(
             commit_message=commit_message,
         )
 
-        msg.good(f"Your model has been uploaded to the Hub, you can find it here: {repo_url}")
+        msg.good(
+            f"Your model has been uploaded to the Hub, you can find it here: {repo_url}"
+        )
     return repo_url
 
 
@@ -390,5 +414,7 @@ def push_to_hub(
         commit_message=commit_message,
     )
 
-    msg.good(f"Your model has been uploaded to the Hub, you can find it here: {repo_url}")
+    msg.good(
+        f"Your model has been uploaded to the Hub, you can find it here: {repo_url}"
+    )
     return repo_url

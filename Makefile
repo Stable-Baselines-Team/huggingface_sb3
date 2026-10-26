@@ -5,13 +5,12 @@ check_dirs := huggingface_sb3
 
 
 quality:
-	isort --check-only $(check_dirs)
-	black --check $(check_dirs)
-	flake8 $(check_dirs)
+	ruff check $(check_dirs)
+	ruff format --check $(check_dirs)
 
 style:
-	black $(check_dirs)
-	isort $(check_dirs)
+	ruff check --select I --fix $(check_dirs)
+	ruff format $(check_dirs)
 
 test:
 	HUGGINGFACE_CO_STAGING=1 pytest -sv ./tests/

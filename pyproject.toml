@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "huggingface_sb3"
+version = "3.2"
+description = "Additional code for Stable-baselines3 to load and upload models from the Hub."
+readme = "README.md"
+license = { text = "Apache" }
+authors = [
+    { name = "Thomas Simonini, Omar Sanseviero and Hugging Face Team", email = "thomas.simonini@huggingface.co" },
+]
+keywords = ["reinforcement learning", "deep reinforcement learning", "RL"]
+dependencies = [
+    "huggingface_hub>=2.0,<3.0",
+    "pyyaml~=6.0",
+    "wasabi",
+    "cloudpickle>=1.6",
+    "stable-baselines3",
+    "moviepy",
+]
+
+[project.optional-dependencies]
+quality = ["ruff"]
+test = ["pytest", "gymnasium[classic-control]"]
+dev = ["ruff", "pytest", "gymnasium[classic-control]"]
+
+[project.urls]
+Homepage = "https://github.com/huggingface/huggingface_sb3"
+
+[tool.setuptools]
+packages = ["huggingface_sb3"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+src = ["huggingface_sb3"]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "UP", "C90", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15

@@ -25,19 +25,22 @@ def load_from_hub(repo_id: str, filename: str) -> str:
     """
     try:
         from huggingface_hub import hf_hub_download
-    except ImportError:
+    except ImportError as e:
         raise ImportError(
             "You need to install huggingface_hub to use `load_from_hub`. "
             "See https://pypi.org/project/huggingface-hub/ for installation."
-        )
+        ) from e
 
     # Copied from https://github.com/huggingface/transformers/pull/27776
     if not strtobool(os.environ.get("TRUST_REMOTE_CODE", "False")):
         raise ValueError(
-            "You are about to download a model from the HF hub that will be loaded using `pickle.load`. "
+            "You are about to download a model from the HF hub that will be loaded "
+            "using `pickle.load`. "
             "`pickle.load` is insecure and will execute arbitrary code that is "
-            "potentially malicious. It's recommended to never unpickle data that could have come from an "
-            "untrusted source, or that could have been tampered with. If you trust the pickle "
+            "potentially malicious. "
+            "It's recommended to never unpickle data that could have come from an "
+            "untrusted source, or that could have been tampered with. "
+            "If you trust the pickle "
             "data and decided to use it, you can set the environment variable "
             "`TRUST_REMOTE_CODE` to `True` to allow it."
         )
