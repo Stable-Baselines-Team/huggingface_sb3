@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -24,8 +24,8 @@ dependencies = [
 
 [project.optional-dependencies]
 quality = ["ruff"]
-test = ["pytest", "gymnasium[classic-control]"]
-dev = ["ruff", "pytest", "gymnasium[classic-control]"]
+test = ["pytest", "requests", "gymnasium[classic-control]"]
+dev = ["ruff", "pytest", "requests", "gymnasium[classic-control]"]
 
 [project.urls]
 Homepage = "https://github.com/huggingface/huggingface_sb3"

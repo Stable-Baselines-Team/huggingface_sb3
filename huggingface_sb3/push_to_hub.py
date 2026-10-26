@@ -159,6 +159,12 @@ def _generate_replay(
 
             # Convert the video with x264 codec
             inp = env.video_path  # For older SB3 versions: env.video_recorder.path
+
+            if hasattr(env, "video_path"):
+                inp = env.video_path
+            else:
+                # For older SB3 versions (sb3<2.4, with Gymnasium <1.0)
+                inp = env.video_recorder.path
             out = os.path.join(local_path, "replay.mp4")
             os.system(f"ffmpeg -y -i {inp} -vcodec h264 {out}".format(inp, out))
 

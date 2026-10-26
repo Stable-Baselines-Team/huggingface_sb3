@@ -1,13 +1,13 @@
-# Hugging Face 🤗 x Stable-baselines3 v3.0
+# Hugging Face 🤗 x Stable-baselines3 v3.2
+
+*Note: this is a fork of https://github.com/huggingface/huggingface_sb3 with fixes for newer SB3 versions*
 
 A library to load and upload Stable-baselines3 models from the Hub with Gymnasium and Gymnasium compatible environments.
-
-⚠️ If you use Gym, you need to install `huggingface_sb3==2.3.1`
 
 ## Installation
 ### With pip
 ```
-pip install huggingface-sb3
+pip install sb3-team-hf-integration
 ```
 
 ## Examples
@@ -78,7 +78,7 @@ from stable_baselines3.common.env_util import make_vec_env
 from huggingface_sb3 import package_to_hub
 
 # Create the environment
-env_id = "LunarLander-v2"
+env_id = "LunarLander-v3"
 env = make_vec_env(env_id, n_envs=1)
 
 # Create the evaluation env
@@ -92,11 +92,11 @@ model.learn(total_timesteps=int(5000))
 
 # This method save, evaluate, generate a model card and record a replay video of your agent before pushing the repo to the hub
 package_to_hub(model=model, 
-               model_name="ppo-LunarLander-v2",
+               model_name="ppo-LunarLander-v3",
                model_architecture="PPO",
                env_id=env_id,
                eval_env=eval_env,
-               repo_id="ThomasSimonini/ppo-LunarLander-v2",
+               repo_id="ThomasSimonini/ppo-LunarLander-v3",
                commit_message="Test commit")
 ```
 
@@ -112,7 +112,7 @@ from stable_baselines3.common.env_util import make_vec_env
 from huggingface_sb3 import push_to_hub
 
 # Create the environment
-env_id = "LunarLander-v2"
+env_id = "LunarLander-v3"
 env = make_vec_env(env_id, n_envs=1)
 
 # Instantiate the agent
@@ -122,16 +122,16 @@ model = PPO("MlpPolicy", env, verbose=1)
 model.learn(total_timesteps=10_000)
 
 # Save the model
-model.save("ppo-LunarLander-v2")
+model.save("ppo-LunarLander-v3")
 
 # Push this saved model .zip file to the hf repo
 # If this repo does not exists it will be created
 ## repo_id = id of the model repository from the Hugging Face Hub (repo_id = {organization}/{repo_name})
-## filename: the name of the file == "name" inside model.save("ppo-LunarLander-v2")
+## filename: the name of the file == "name" inside model.save("ppo-LunarLander-v3")
 push_to_hub(
-    repo_id="ThomasSimonini/ppo-LunarLander-v2",
-    filename="ppo-LunarLander-v2.zip",
-    commit_message="Added LunarLander-v2 model trained with PPO",
+    repo_id="ThomasSimonini/ppo-LunarLander-v3",
+    filename="ppo-LunarLander-v3.zip",
+    commit_message="Added LunarLander-v3 model trained with PPO",
 )
 ```
 ### Case 3: I use Google Colab with Classic Control/Box2D Gym Environments
