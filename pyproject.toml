@@ -7,7 +7,7 @@ name = "huggingface_sb3"
 version = "3.2"
 description = "Additional code for Stable-baselines3 to load and upload models from the Hub."
 readme = "README.md"
-license = { text = "Apache" }
+license = "Apache-2.0"
 authors = [
     { name = "Thomas Simonini, Omar Sanseviero and Hugging Face Team", email = "thomas.simonini@huggingface.co" },
 ]
@@ -45,3 +45,10 @@ select = ["E", "F", "B", "UP", "C90", "RUF"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 15
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    # Numpy 2.x warnings when loading old SB3 model
+    # "ignore::DeprecationWarning:numpy",
+    "ignore:numpy.core.numeric is deprecated",
+]
