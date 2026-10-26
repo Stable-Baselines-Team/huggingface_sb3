@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "huggingface_sb3"
+name = "sb3-team-hf-integration"
 version = "3.2"
 description = "Additional code for Stable-baselines3 to load and upload models from the Hub."
 readme = "README.md"
