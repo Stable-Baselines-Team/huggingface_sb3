@@ -5,7 +5,6 @@ import shutil
 import tempfile
 import zipfile
 from pathlib import Path
-from typing import Optional, Tuple, Union
 
 import gymnasium as gym
 import numpy as np
@@ -59,7 +58,7 @@ def _evaluate_agent(
     n_eval_episodes: int,
     is_deterministic: bool,
     local_path: Path,
-) -> Tuple[float, float]:
+) -> tuple[float, float]:
     """
     Evaluate the agent using SB3 evaluate_policy method
     and create a results.json
@@ -279,12 +278,12 @@ def package_to_hub(
     model_name: str,
     model_architecture: str,
     env_id: str,
-    eval_env: Union[VecEnv, gym.Env],
+    eval_env: VecEnv | gym.Env,
     repo_id: str,
-    commit_message: Optional[str] = None,
+    commit_message: str | None = None,
     is_deterministic: bool = True,
     n_eval_episodes: int = 10,
-    token: Optional[str] = None,
+    token: str | None = None,
     video_length: int = 1000,
     logs=None,
 ):
@@ -391,8 +390,8 @@ def package_to_hub(
 def push_to_hub(
     repo_id: str,
     filename: str,
-    commit_message: Optional[str] = None,
-    token: Optional[str] = None,
+    commit_message: str | None = None,
+    token: str | None = None,
 ) -> str:
     """
     Upload a model to Hugging Face Hub.

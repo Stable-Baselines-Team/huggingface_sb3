@@ -12,6 +12,7 @@ authors = [
     { name = "Thomas Simonini, Omar Sanseviero and Hugging Face Team", email = "thomas.simonini@huggingface.co" },
 ]
 keywords = ["reinforcement learning", "deep reinforcement learning", "RL"]
+requires-python = ">=3.10"
 dependencies = [
     "huggingface_hub>=2.0,<3.0",
     "pyyaml~=6.0",
@@ -34,7 +35,7 @@ packages = ["huggingface_sb3"]
 
 [tool.ruff]
 line-length = 88
-target-version = "py38"
+target-version = "py310"
 src = ["huggingface_sb3"]
 
 [tool.ruff.lint]
