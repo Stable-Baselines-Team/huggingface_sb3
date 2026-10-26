@@ -17,10 +17,10 @@ def test_push_to_hub():
         with open(filename, "w") as f:
             f.write(content)
         # Push the file to the hub
-        push_to_hub("hf-sb3-test/test_repo", filename, token=os.getenv("HF_TOKEN"))
+        push_to_hub("sb3/test_hf_repo", filename, token=os.getenv("HF_TOKEN"))
 
     # Retrieve the content of the file
-    url = f"https://huggingface.co/hf-sb3-test/test_repo/raw/main/{filename}"
+    url = f"https://huggingface.co/sb3/test_hf_repo/raw/main/{filename}"
     response = requests.get(url)
     # Check that the request was successful
     assert response.status_code == 200, f"Error {response.status_code}: {response.text} {url}"
@@ -41,7 +41,7 @@ def test_package_to_hub():
         model_architecture,
         env_id,
         env,
-        repo_id="hf-sb3-test/ppo-CartPole-v1",
+        repo_id="sb3/test-ppo-CartPole-v1",
         token=os.getenv("HF_TOKEN"),
     )
     print(f"Model packaged and uploaded to {repo_url}")
